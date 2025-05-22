@@ -1,3 +1,10 @@
+import { Metadata } from 'next' 
+
+export const metadata: Metadata = {
+  title: 'Next Shadcn Dashboard Starter',
+  description: 'Basic dashboard with Next.js and Shadcn',
+}
+
 export default function Page() {
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">
