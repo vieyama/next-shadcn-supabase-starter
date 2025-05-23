@@ -23,13 +23,10 @@ import { createClient } from "@/utils/supabase/client"
 const formSchema = z.object({
   email: z.string().email().min(1, {
     message: "Email is required",
-  }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters",
   })
 })
 
-export function LoginView({
+export function ForgotPasswordView({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
@@ -37,18 +34,14 @@ export function LoginView({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: ""
     },
   })
 
   const supabase = createClient();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    supabase.auth.signInWithPassword({
-      email: values.email,
-      password: values.password,
-    }).then(({ data, error }) => {
+    supabase.auth.resetPasswordForEmail(values.email, {redirectTo:'http://localhost:3000/reset-password'}).then(({ data, error }) => {
       if (error) {
         toast.error(error.message);
       } else {
@@ -62,9 +55,9 @@ export function LoginView({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">Reset Password</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your email below to receive a password reset link.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -88,38 +81,10 @@ export function LoginView({
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="password"
-                          placeholder="********"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="text-sm">
-                  Forgot your password?{" "}
-                  <Link href="/auth/forgot-password" className="underline underline-offset-4">
-                    Click Here
-                  </Link>
-                </div>
+                
                 <Button type="submit" className="w-full">
-                  Login
+                  Send reset password email
                 </Button>
-              </div>
-              <div className="mt-4 text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <Link href="/auth/register" className="underline underline-offset-4">
-                  Sign up
-                </Link>
               </div>
             </form>
           </Form>
