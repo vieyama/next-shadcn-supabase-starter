@@ -34,7 +34,7 @@ const passwordFormSchema = z
     path: ["confirmPassword"],
   });
 
-interface ResetPasswordViewProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ResetPasswordViewProps extends React.ComponentPropsWithoutRef<"div"> {
   className?: string;
   code?: string;
 }
@@ -76,7 +76,7 @@ export function ResetPasswordView({
             toast.error("Invalid or expired password reset link");
             router.push('/auth/login');
           }
-        } catch (e) {
+        } catch {
           toast.error("Invalid or expired password reset link");
           router.push('/auth/login');
         }
