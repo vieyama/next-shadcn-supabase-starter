@@ -21,6 +21,11 @@ A modern, full-stack starter template for building web applications with Next.js
 
 ```sh
 git clone https://github.com/vieyama/next-shadcn-supabase-starter.git
+
+or
+
+npx degit vieyama/next-shadcn-supabase-starter my-app
+
 cd next-shadcn-supabase-starter
 ```
 
