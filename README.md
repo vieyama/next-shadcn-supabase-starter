@@ -12,7 +12,7 @@ A modern, full-stack starter template for building web applications with Next.js
 - **React Hook Form**: Flexible form management
 - **ESLint & Prettier**: Code quality and formatting
 - **Authentication Flows**: Register, login, forgot/reset password
-- **User Profile**: Update profile, change password, upload avatar
+- **User Profile**: Update profile, change password, upload avatar (with Supabase Storage)
 - **Responsive Layout**: Dashboard and public pages
 
 ## Getting Started
@@ -68,6 +68,22 @@ Visit [http://localhost:3000](http://localhost:3000) to view the app.
 - **Forgot Password**: `/auth/forgot-password`
 - **Reset Password**: `/auth/reset-password?code=...`
 
+## User Avatars with Supabase Storage
+
+This starter supports uploading and updating user avatars using Supabase Storage:
+
+- Avatar images are uploaded to your Supabase Storage bucket.
+- The avatar URL is saved to the user's profile and displayed in the UI.
+- You can customize the upload logic in `src/features/profile/avatar-upload.tsx`.
+
+### How it works
+
+- When a user selects a new avatar, the file is uploaded to Supabase Storage.
+- The public URL is saved to the user's profile in your database.
+- The avatar is displayed using the URL from Supabase Storage.
+
+See the `AvatarUpload` component for implementation details and customization options.
+
 ## Customization
 
 - Add new pages in `src/app/`
@@ -81,6 +97,26 @@ yarn lint
 # or
 npm run lint
 ```
+
+## Code Quality: Prettier & Husky
+
+This project uses **Prettier** for code formatting and **Husky** with `lint-staged` to enforce code quality before pushing to GitHub.
+
+- All staged files are automatically formatted and linted before each push.
+- You can manually run formatting and linting:
+
+```sh
+yarn format      # Format all files with Prettier
+yarn lint        # Run ESLint on the codebase
+```
+
+### How it works
+
+- Husky sets up a `pre-push` git hook.
+- `lint-staged` runs Prettier (and optionally ESLint) on staged files.
+- If any issues are found, the push will be blocked until they are fixed.
+
+You can customize the rules in `eslint.config.mjs` and the hook in `.husky/pre-push`.
 
 ## Deployment
 
