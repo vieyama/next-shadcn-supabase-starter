@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js ShadCN Supabase Starter
+
+A modern, full-stack starter template for building web applications with Next.js, ShadCN UI, and Supabase. This boilerplate provides authentication, user profile management, and a clean, extendable codebase for rapid development.
+
+## Features
+
+- **Next.js 14+**: App Router, SSR/SSG, file-based routing
+- **ShadCN UI**: Beautiful, accessible, and customizable UI components
+- **Supabase**: Authentication, database, and storage integration
+- **TypeScript**: Type-safe codebase
+- **Zod**: Schema validation for forms
+- **React Hook Form**: Flexible form management
+- **ESLint & Prettier**: Code quality and formatting
+- **Authentication Flows**: Register, login, forgot/reset password
+- **User Profile**: Update profile, change password, upload avatar
+- **Responsive Layout**: Dashboard and public pages
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the Repository
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```sh
+git clone https://github.com/vieyama/next-shadcn-supabase-starter.git
+cd next-shadcn-supabase-starter
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+yarn install
+# or
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Configure Environment Variables
 
-## Learn More
+Copy `.env.example` to `.env.local` and fill in your Supabase project credentials:
 
-To learn more about Next.js, take a look at the following resources:
+```
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+NEXT_PUBLIC_APPS_URL=http://localhost:3000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Run the Development Server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sh
+yarn dev
+# or
+npm run dev
+```
 
-## Deploy on Vercel
+Visit [http://localhost:3000](http://localhost:3000) to view the app.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/` — Next.js app directory (routing, pages)
+- `src/components/ui/` — ShadCN UI components
+- `src/features/auth/` — Authentication views and logic
+- `src/features/profile/` — User profile management
+- `src/utils/supabase/` — Supabase client/server utilities
+- `src/lib/` — Shared utilities
+
+## Authentication Flows
+
+- **Register**: `/auth/register`
+- **Login**: `/auth/login`
+- **Forgot Password**: `/auth/forgot-password`
+- **Reset Password**: `/auth/reset-password?code=...`
+
+## Customization
+
+- Add new pages in `src/app/`
+- Extend UI with ShadCN components in `src/components/ui/`
+- Add new features in `src/features/`
+
+## Linting & Formatting
+
+```sh
+yarn lint
+# or
+npm run lint
+```
+
+## Deployment
+
+Deploy to Vercel, Netlify, or any platform supporting Next.js.
+
+## Credits
+
+- [Next.js](https://nextjs.org/)
+- [ShadCN UI](https://ui.shadcn.com/)
+- [Supabase](https://supabase.com/)
+
+---
+
+Feel free to use, modify, and contribute to this starter!
