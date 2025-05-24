@@ -13,8 +13,11 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
-      'no-unused-vars': ['warn', { args: 'after-used', argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-      '@typescript-eslint/no-unused-vars': ['warn', { args: 'after-used', argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      "@typescript-eslint/no-unused-vars": "warn",
+      "import/no-unresolved": "off",
+      "import/named": "off",
+      "no-console": ["warn", { allow: ["error"] }],
+      "react-hooks/exhaustive-deps": "warn"
     },
   },
 ];
