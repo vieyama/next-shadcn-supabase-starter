@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Toaster } from '@/components/ui/sonner';
 import NextTopLoader from 'nextjs-toploader';
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const META_THEME_COLORS = {
   light: '#ffffff',
@@ -23,13 +24,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className="antialiased"
       >
-        <NextTopLoader showSpinner={false} />
-        <Toaster />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextTopLoader showSpinner={false} />
+          <Toaster />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
