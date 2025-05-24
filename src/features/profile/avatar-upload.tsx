@@ -5,7 +5,7 @@ import { Upload } from "lucide-react";
 
 interface AvatarUploadProps {
   initialImage?: string;
-  onUpload?: (file: File) => void;
+  onUpload?: (_file: File) => Promise<File | null>;
 }
 
 export default function AvatarUpload({ initialImage, onUpload }: AvatarUploadProps) {
@@ -26,13 +26,17 @@ export default function AvatarUpload({ initialImage, onUpload }: AvatarUploadPro
       return;
     }
 
+    const uploadedFile = onUpload?.(file);
+
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreview(reader.result as string);
     };
-    reader.readAsDataURL(file);
 
-    onUpload?.(file);
+    if(uploadedFile) {
+      reader.readAsDataURL(file);
+    }
+
   };
 
   const handleClick = () => {

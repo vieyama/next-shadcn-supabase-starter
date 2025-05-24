@@ -47,35 +47,57 @@ const ProfileForm = ({ userMetaData, userId }: { userMetaData?: UserMetadata, us
     });
   }
 
-  const handleAvatarUpload = async (file: File) => {
+  const handleAvatarUpload = async (file: File): Promise<File | null> => {
     const supabase = createClient();
     const bucketName = 'avatars';
-    const filePath = `public/${userId}/${Date.now()}-${file.name}`
+    const filePath = `public/${userId}/${Date.now()}-${file.name}`;
 
-    supabase.storage.from(bucketName).upload(filePath, file, {
-      cacheControl: "3600",
-      upsert: false,
-    }).then(({ data, error }) => {
-      if (error) {
+    try {
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from(bucketName)
+        .upload(filePath, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (uploadError || !uploadData) {
         toast.error("Error uploading avatar");
-        console.error("Error uploading avatar:", error);
-      } else {
-        toast.success("Avatar uploaded successfully");
-        const { data: publicUrlData } = supabase.storage.from(bucketName).getPublicUrl(data.path);
-        if (!publicUrlData || !publicUrlData.publicUrl) {
-          toast.error("Error getting avatar URL");
-          console.error("Error getting avatar URL");
-        } else {
-          // Update user metadata with the new avatar URL
-          supabase.auth.updateUser({
-            data: {
-              avatar: publicUrlData.publicUrl
-            },
-          });
-        }
+        console.error("Upload Error:", uploadError);
+        return null;
       }
-    });
+
+      const { data: publicUrlData } = supabase.storage
+        .from(bucketName)
+        .getPublicUrl(uploadData.path);
+
+      if (!publicUrlData || !publicUrlData.publicUrl) {
+        toast.error("Error getting avatar URL");
+        console.error("Public URL Error");
+        return null;
+      }
+
+      const { error: updateError } = await supabase.auth.updateUser({
+        data: {
+          avatar: publicUrlData.publicUrl,
+        },
+      });
+
+      if (updateError) {
+        toast.error("Error updating user avatar");
+        console.error("Update Error:", updateError);
+        return null;
+      }
+
+      toast.success("Avatar uploaded successfully");
+      return file;
+
+    } catch (err) {
+      toast.error("Unexpected error during avatar upload");
+      console.error("Unexpected Error:", err);
+      return null;
+    }
   };
+  
 
   return (
     <Card>

@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import Link from "next/link"
 import { z } from "zod";
 import { toast } from 'sonner';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { createClient } from "@/utils/supabase/client"
+import { useState } from "react"
 
 
 const formSchema = z.object({
@@ -30,6 +30,7 @@ export function ForgotPasswordView({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,12 +42,17 @@ export function ForgotPasswordView({
   const supabase = createClient();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    supabase.auth.resetPasswordForEmail(values.email, {redirectTo:'http://localhost:3000/reset-password'}).then(({ data, error }) => {
+    setIsLoading(true);
+    supabase.auth.resetPasswordForEmail(values.email, {
+      redirectTo: `${process.env.NEXT_PUBLIC_APPS_URL}/auth/reset-password`
+    }).then(({ error }) => {
       if (error) {
         toast.error(error.message);
+        setIsLoading(false);
       } else {
-        toast.success("Login successful");
-        router.push('/dashboard');
+        toast.success("Password reset email sent");
+        router.push('/auth/login');
+        setIsLoading(false);
       }
     })
   }
@@ -81,8 +87,8 @@ export function ForgotPasswordView({
                     </FormItem>
                   )}
                 />
-                
-                <Button type="submit" className="w-full">
+
+                <Button type="submit" isLoading={isLoading} className="cursor-pointer w-full">
                   Send reset password email
                 </Button>
               </div>

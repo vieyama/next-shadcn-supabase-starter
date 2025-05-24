@@ -57,7 +57,7 @@ export function RegisterView({
           fullname: values.fullname,
         }
       }
-    }).then(({ data, error }) => {
+    }).then(({ error }) => {
       if (error) {
         toast.error(error.message);
       } else {
@@ -131,7 +131,7 @@ export function RegisterView({
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="cursor-pointer w-full">
                   Register
                 </Button>
               </div>

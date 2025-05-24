@@ -1,12 +1,10 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import AvatarUpload from "./avatar-upload";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { UserMetadata } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 import { toast } from "sonner";
 
@@ -29,7 +27,7 @@ const passwordFormSchema = z
 
 type ProfileFormValues = z.infer<typeof passwordFormSchema>;
 
-const PasswordForm = ({ userMetaData, userId }: { userMetaData?: UserMetadata, userId?: string }) => {
+const PasswordForm = () => {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(passwordFormSchema),
     defaultValues: {

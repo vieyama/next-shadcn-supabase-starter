@@ -1,7 +1,6 @@
 import * as React from "react"
 import { ChevronRight, Command } from "lucide-react"
 
-import { SearchForm } from "@/components/search-form"
 import {
   Collapsible,
   CollapsibleContent,

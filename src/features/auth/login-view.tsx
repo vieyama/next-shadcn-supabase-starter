@@ -48,7 +48,7 @@ export function LoginView({
     supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
-    }).then(({ data, error }) => {
+    }).then(({ error }) => {
       if (error) {
         toast.error(error.message);
       } else {
@@ -111,7 +111,7 @@ export function LoginView({
                     Click Here
                   </Link>
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="cursor-pointer w-full">
                   Login
                 </Button>
               </div>

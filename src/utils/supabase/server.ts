@@ -14,7 +14,7 @@ export function createClient() {
           const entries = cookies.getAll(); // Assuming `getAll()` returns an array of cookies
           return entries.map(({ name, value }) => ({ name, value }));
         },
-        async setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
+        async setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
           const cookies = await cookieStore;
           for (const { name, value, options } of cookiesToSet) {
             cookies.set({ name, value, ...options });
