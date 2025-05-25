@@ -21,13 +21,11 @@ const AppBreadcrumb: React.FC<AppBreadcrumbProps> = ({ items }) => {
             <React.Fragment key={index}>
               <BreadcrumbItem>
                 {item.url ? (
-                  <BreadcrumbLink>
+                  <BreadcrumbLink asChild>
                     <Link href={item.url}>{item.label}</Link>
                   </BreadcrumbLink>
                 ) : (
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>{item.label}</BreadcrumbPage>
-                  </BreadcrumbItem>
+                  <BreadcrumbPage>{item.label}</BreadcrumbPage>
                 )}
               </BreadcrumbItem>
               {index !== items.length - 1 && <BreadcrumbSeparator />}

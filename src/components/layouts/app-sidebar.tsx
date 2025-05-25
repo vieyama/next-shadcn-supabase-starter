@@ -1,189 +1,96 @@
-import * as React from "react"
-import { ChevronRight, Command } from "lucide-react"
+'use client';
 
+import * as React from 'react';
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+  BookOpen,
+  Bot,
+  Command,
+  LayoutDashboard,
+  Package,
+  Settings2,
+  SquarePercent,
+  Store,
+  Users2
+} from 'lucide-react';
+
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-} from "@/components/ui/sidebar"
-import Link from "next/link"
+  SidebarMenuItem
+} from '@/components/ui/sidebar';
+import { NavItem } from './nav-item';
 
-// This is sample data.
 const data = {
-  navMain: [
+  dashboard: [
     {
-      title: "Getting Started",
-      url: "#",
-      items: [
-        {
-          title: "Installation",
-          url: "#",
-        },
-        {
-          title: "Project Structure",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Building Your Application",
-      url: "#",
-      items: [
-        {
-          title: "Routing",
-          url: "#",
-        },
-        {
-          title: "Data Fetching",
-          url: "#",
-          isActive: true,
-        },
-        {
-          title: "Rendering",
-          url: "#",
-        },
-        {
-          title: "Caching",
-          url: "#",
-        },
-        {
-          title: "Styling",
-          url: "#",
-        },
-        {
-          title: "Optimizing",
-          url: "#",
-        },
-        {
-          title: "Configuring",
-          url: "#",
-        },
-        {
-          title: "Testing",
-          url: "#",
-        },
-        {
-          title: "Authentication",
-          url: "#",
-        },
-        {
-          title: "Deploying",
-          url: "#",
-        },
-        {
-          title: "Upgrading",
-          url: "#",
-        },
-        {
-          title: "Examples",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "API Reference",
-      url: "#",
-      items: [
-        {
-          title: "Components",
-          url: "#",
-        },
-        {
-          title: "File Conventions",
-          url: "#",
-        },
-        {
-          title: "Functions",
-          url: "#",
-        },
-        {
-          title: "next.config.js Options",
-          url: "#",
-        },
-        {
-          title: "CLI",
-          url: "#",
-        },
-        {
-          title: "Edge Runtime",
-          url: "#",
-        },
-      ],
+      title: 'Dashboard',
+      url: '/dashboard',
+      icon: LayoutDashboard
     }
   ],
-}
+  product: [
+    {
+      title: 'Products',
+      url: '/products',
+      icon: Package,
+      isActive: true,
+      items: [
+        {
+          title: 'Categories',
+          url: '/dashboard/categories'
+        },
+        {
+          title: 'Supplier',
+          url: '/dashboard/suppliers'
+        }
+      ]
+    },
+    {
+      title: 'Stores',
+      url: '/dashboard/stores',
+      icon: Store
+    }
+  ],
+  setting: [
+    {
+      title: 'Employee',
+      url: '/dashboard/employee',
+      icon: Users2
+    }
+  ]
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar {...props}>
+    <Sidebar
+      className='top-[--header-height] !h-[calc(100svh-var(--header-height))]'
+      {...props}
+    >
       <SidebarHeader>
         <SidebarMenu>
-          {/* This is the sidebar header logo */}
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <Link href="/dashboard">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
+            <SidebarMenuButton size='lg' asChild>
+              <a href='#'>
+                <div className='bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
+                  <Command className='size-4' />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                <div className='grid flex-1 text-left text-sm leading-tight'>
+                  <span className='truncate font-semibold'>Acme Inc</span>
+                  <span className='truncate text-xs'>Enterprise</span>
                 </div>
-              </Link>
+              </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-        {/* <SearchForm /> */}
       </SidebarHeader>
-      <SidebarContent className="gap-0 scrollbar-hidden">
-        {/* We create a collapsible SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
-          <Collapsible
-            key={item.title}
-            title={item.title}
-            defaultOpen
-            className="group/collapsible"
-          >
-            <SidebarGroup>
-              <SidebarGroupLabel
-                asChild
-                className="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-              >
-                <CollapsibleTrigger>
-                  {item.title}{" "}
-                  <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-                </CollapsibleTrigger>
-              </SidebarGroupLabel>
-              <CollapsibleContent>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {item.items.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </CollapsibleContent>
-            </SidebarGroup>
-          </Collapsible>
-        ))}
+      <SidebarContent>
+        <NavItem items={data.dashboard} menuName='Dashboard' />
+        <NavItem items={data.product} menuName='Produk' />
+        <NavItem items={data.setting} menuName='Setting' />
       </SidebarContent>
-      <SidebarRail />
     </Sidebar>
-  )
+  );
 }
