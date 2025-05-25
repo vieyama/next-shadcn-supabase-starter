@@ -44,7 +44,7 @@ const EmployeeView = () => {
   };
 
   const filteredAndSortedData = useMemo(() => {
-    let filtered = data.filter((item) => {
+    const filtered = data.filter((item) => {
       const matchesSearch =
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.email.toLowerCase().includes(searchQuery.toLowerCase()) ||

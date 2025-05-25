@@ -25,7 +25,7 @@ export const EmployeeDataTable = ({
     }).format(amount);
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | number) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -112,7 +112,7 @@ export const EmployeeDataTable = ({
       label: 'Salary',
       render: (value) => (
         <div className='font-medium text-slate-900'>
-          {formatCurrency(value)}
+          {formatCurrency(typeof value === 'number' ? value : Number(value))}
         </div>
       )
     },

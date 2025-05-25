@@ -1,17 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {
-  BookOpen,
-  Bot,
-  Command,
-  LayoutDashboard,
-  Package,
-  Settings2,
-  SquarePercent,
-  Store,
-  Users2
-} from 'lucide-react';
+import { Command, LayoutDashboard, Package, Store, Users2 } from 'lucide-react';
 
 import {
   Sidebar,

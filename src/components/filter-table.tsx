@@ -147,7 +147,7 @@ export const TableFilters = ({
           {searchQuery && (
             <div className='inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-sm text-blue-700'>
               <Search className='h-3 w-3' />
-              Search: "{searchQuery}"
+              Search: &quot;{searchQuery}&quot;
               <button
                 onClick={() => handleSearchChange('')}
                 className='ml-1 rounded-full p-0.5 hover:bg-blue-100'

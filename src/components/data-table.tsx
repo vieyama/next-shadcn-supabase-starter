@@ -1,5 +1,3 @@
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 
@@ -7,7 +5,7 @@ export interface Column<T> {
   key: keyof T;
   label: string;
   sortable?: boolean;
-  render?: (value: any, item: T) => React.ReactNode;
+  render?: (value: T[keyof T], item: T) => React.ReactNode;
 }
 
 interface DataTableProps<T> {
@@ -20,7 +18,7 @@ interface DataTableProps<T> {
   emptyDescription?: string;
 }
 
-export const DataTable = <T extends Record<string, any>>({
+export const DataTable = <T,>({
   data,
   columns,
   sortBy,
@@ -75,7 +73,7 @@ export const DataTable = <T extends Record<string, any>>({
         <tbody>
           {data.map((item, index) => (
             <tr
-              key={item.id || index}
+              key={index}
               className='border-b border-slate-100 transition-colors duration-200 hover:bg-slate-50/50'
             >
               {columns.map((column) => (
